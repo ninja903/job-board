@@ -31,7 +31,7 @@ export default function HomePage() {
                <SidebarUserButton />
               </SidebarMenuItem>
             </SidebarMenu>
-            </SidebarFooter>
+          </SidebarFooter>
           </SignedIn>
         </Sidebar>
         <main className="flex-1">gdqwd</main>
@@ -39,3 +39,4 @@ export default function HomePage() {
     </SidebarProvider>
   )
 };
+
