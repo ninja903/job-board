@@ -4,8 +4,8 @@ import { EventSchemas, Inngest} from "inngest"
 
 type ClerkWebhookData<T> = {
     data: {
-        data: T,
-        raw: string,
+        data: T
+        raw: string
         headers: Record<string, string>
     }
 };

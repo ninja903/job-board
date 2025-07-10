@@ -17,21 +17,21 @@ export default function HomePage() {
           <SidebarContent>
             <SidebarGroup>
               <SidebarMenu>
-                  <SignedOut>
-                    <SidebarMenuItem>
-                    </SidebarMenuItem>  
-                  </SignedOut>
+                <SignedOut>
+                  <SidebarMenuItem>
+                  </SidebarMenuItem>
+                </SignedOut>
               </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
           <SignedIn>
-          <SidebarFooter>
-            <SidebarMenu>
-              <SidebarMenuItem>
-               <SidebarUserButton />
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarFooter>
+            <SidebarFooter>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarUserButton />
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarFooter>
           </SignedIn>
         </Sidebar>
         <main className="flex-1">gdqwd</main>
