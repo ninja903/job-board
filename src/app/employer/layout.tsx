@@ -2,22 +2,29 @@
 import { AppSidebar } from "@/components/sidebar/AppSidebar"
 import { SidebarNavMenuGroup } from "@/components/sidebar/SidebarNavMenuGroup"
 import { SidebarGroup, SidebarGroupAction, SidebarGroupLabel } from "@/components/ui/sidebar"
-import { SidebarOrganizationButton } from "@/features/users/organizations/components/SidebarOrganizationButton"
+import { SidebarOrganizationButton } from "@/features/organizations/components/SidebarOrganizationButton"
+import { getCurrentOrganization } from "@/services/clerk/lib/getCurrentAuth"
 import {
   ClipboardListIcon,
   LogInIcon,
   PlusIcon,
 } from "lucide-react"
+import { redirect } from "next/navigation"
 import Link from "next/link"
-import { ReactNode } from "react"
+import { ReactNode, Suspense } from "react"
 
-export default function EmployerLayout({
-  children,
-  
-}: {
-  children: ReactNode
-  sidebar: ReactNode
-}) {
+
+export default function EmployerLayout({ children }: { children: ReactNode }) {
+    return (
+      <Suspense>
+        <LayoutSuspense>{children}</LayoutSuspense>
+      </Suspense>
+    )
+  }
+
+async function LayoutSuspense({ children, }: { children: ReactNode }) {
+    const { orgId } = await getCurrentOrganization()
+    if(orgId == null) return redirect("/organizations/select")
     return (
         <AppSidebar
             content={
@@ -50,3 +57,4 @@ export default function EmployerLayout({
         </AppSidebar>
     );
 };
+
