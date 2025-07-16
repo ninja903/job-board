@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { JobListingform } from "@/features/jobListings/components/JobListingForm"
+import { JobListingForm } from "@/features/jobListings/components/JobListingForm"
 
 
 export default function NewJobListingPage() {
@@ -11,7 +11,7 @@ export default function NewJobListingPage() {
             </p>
             <Card>
                 <CardContent>
-                    <JobListingform />
+                    <JobListingForm />
                 </CardContent>
             </Card>
         </div>
