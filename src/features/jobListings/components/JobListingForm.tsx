@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-//import { jobListingSchema } from "../actions/schemas"
+import { jobListingSchema } from "../actions/schemas"
 import {
   Form,
   FormControl,
@@ -38,13 +38,12 @@ import {
 import { StateSelectItems } from "./StateSelectItems"
 import { MarkdownEditor } from "@/components/markdown/MarkdownEditor"
 import { Button } from "@/components/ui/button"
-// { LoadingSwap } from "@/components/LoadingSwap"
+import  { LoadingSwap } from "@/components/LoadingSwap"
 import { Loader2Icon } from "lucide-react"
-//import { createJobListing, updateJobListing } from "../actions/actions"
+import { createJobListing, updateJobListing } from "../actions/actions"
 import { toast } from "sonner"
-import { jobListingSchema } from "../action/schemas"
 import { updateJobListing } from "../db/jobListings"
-import { LoadingSwap } from "@/components/LoadingSwap"
+
 
 const NONE_SELECT_VALUE = "none"
 
@@ -66,7 +65,7 @@ export function JobListingForm({
   >
 }) {
   const form = useForm({
-    //resolver: zodResolver(jobListingSchema),
+    resolver: zodResolver(jobListingSchema),
     defaultValues: jobListing ?? {
       title: "",
       description: "",
