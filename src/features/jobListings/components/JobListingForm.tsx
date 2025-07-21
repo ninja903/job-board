@@ -42,7 +42,7 @@ import  { LoadingSwap } from "@/components/LoadingSwap"
 import { Loader2Icon } from "lucide-react"
 import { createJobListing, updateJobListing } from "../actions/actions"
 import { toast } from "sonner"
-import { updateJobListing } from "../db/jobListings"
+//import { updateJobListing } from "../db/jobListings"
 
 
 const NONE_SELECT_VALUE = "none"
