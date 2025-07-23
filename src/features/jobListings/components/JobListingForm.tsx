@@ -38,12 +38,10 @@ import {
 import { StateSelectItems } from "./StateSelectItems"
 import { MarkdownEditor } from "@/components/markdown/MarkdownEditor"
 import { Button } from "@/components/ui/button"
-import  { LoadingSwap } from "@/components/LoadingSwap"
+import { LoadingSwap } from "@/components/LoadingSwap"
 import { Loader2Icon } from "lucide-react"
 import { createJobListing, updateJobListing } from "../actions/actions"
 import { toast } from "sonner"
-//import { updateJobListing } from "../db/jobListings"
-
 
 const NONE_SELECT_VALUE = "none"
 
@@ -77,7 +75,7 @@ export function JobListingForm({
       type: "full-time",
       locationRequirement: "in-office",
     },
-  })
+  });
 
   async function onSubmit(data: z.infer<typeof jobListingSchema>) {
     const action = jobListing
@@ -88,7 +86,7 @@ export function JobListingForm({
     if (res.error) {
       toast.error(res.message)
     }
-  }
+  };
 
   return (
     <Form {...form}>
@@ -311,5 +309,5 @@ export function JobListingForm({
         </Button>
       </form>
     </Form>
-  )
-}
+  );
+};

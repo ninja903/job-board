@@ -37,11 +37,14 @@ export async function createJobListing(
   if (
     orgId == null ||
     !(await hasOrgUserPermission("org:job_listings:create"))
-  ) {
+    
+  )console.log("orgId", orgId);
+  console.log("hasPermission", await hasOrgUserPermission("org:job_listings:create")); {
     return {
       error: true,
       message: "You don't have permission to create a job listing",
     }
+   
   }
 
   const { success, data } = jobListingSchema.safeParse(unsafeData)
