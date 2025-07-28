@@ -2,50 +2,50 @@ import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
-  } from "@/components/ui/resizable"
-  import { JobListingItems } from "../../_shared/JobListingItems"
-  import { IsBreakpoint } from "@/components/IsBreakpoint"
-  import { Suspense } from "react"
-  import { LoadingSpinner } from "@/components/LoadingSpinner"
-  import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-  import { ClientSheet } from "./_ClientSheet"
-  import { getJobListingIdTag } from "@/features/jobListings/db/cache/jobListings"
-  import { cacheTag } from "next/dist/server/use-cache/cache-tag"
-  import { and, eq } from "drizzle-orm"
-  import {
+} from "@/components/ui/resizable"
+import { JobListingItems } from "../../_shared/JobListingItems"
+import { IsBreakpoint } from "@/components/IsBreakpoint"
+import { Suspense } from "react"
+import { LoadingSpinner } from "@/components/LoadingSpinner"
+import { SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+import { ClientSheet } from "./_ClientSheet"
+import { getJobListingIdTag } from "@/features/jobListings/db/cache/jobListings"
+import { cacheTag } from "next/dist/server/use-cache/cache-tag"
+import { and, eq } from "drizzle-orm"
+import {
     JobListingApplicationTable,
     JobListingTable,
     UserResumeTable,
-  } from "@/drizzle/schema"
-  import { db } from "@/drizzle/db"
-  import { getOrganizationIdTag } from "@/features/organizations/db/cache/organizations"
-  import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-  import { notFound } from "next/navigation"
-  import { Button } from "@/components/ui/button"
-  import Link from "next/link"
-  import { convertSearchParamsToString } from "@/lib/convertSearchParamsToString"
-  import { XIcon } from "lucide-react"
-  import { JobListingBadges } from "@/features/jobListings/components/JobListingBadges"
-  import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer"
-  import { getCurrentUser } from "@/services/clerk/lib/getCurrentAuth"
-  import {
+} from "@/drizzle/schema"
+import { db } from "@/drizzle/db"
+import { getOrganizationIdTag } from "@/features/organizations/db/cache/organizations"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { notFound } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { convertSearchParamsToString } from "@/lib/convertSearchParamsToString"
+import { XIcon } from "lucide-react"
+import { JobListingBadges } from "@/features/jobListings/components/JobListingBadges"
+import { MarkdownRenderer } from "@/components/markdown/MarkdownRenderer"
+import { getCurrentUser } from "@/services/clerk/lib/getCurrentAuth"
+import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-  } from "@/components/ui/popover"
-  import { SignUpButton } from "@/services/clerk/components/AuthButtons"
-  import { getJobListingApplicationIdTag } from "@/features/jobListingApplications/db/cache/jobListingApplications"
-  import { differenceInDays } from "date-fns"
-  import { connection } from "next/server"
-  import { getUserResumeIdTag } from "@/features/users/db/cache/userResumes"
-  import {
+} from "@/components/ui/popover"
+import { SignUpButton } from "@/services/clerk/components/AuthButtons"
+import { getJobListingApplicationIdTag } from "@/features/jobListingApplications/db/cache/jobListingApplications"
+import { differenceInDays } from "date-fns"
+import { connection } from "next/server"
+import { getUserResumeIdTag } from "@/features/users/db/cache/userResumes"
+import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTrigger,
-  } from "@/components/ui/dialog"
-  import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog"
-  import { NewJobListingApplicationForm } from "@/features/jobListingApplications/components/NewJobListingApplicationForm"
+} from "@/components/ui/dialog"
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog"
+import { NewJobListingApplicationForm } from "@/features/jobListingApplications/components/NewJobListingApplicationForm"
   
   export default function JobListingPage({
     params,
