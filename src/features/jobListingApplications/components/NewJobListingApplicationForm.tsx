@@ -15,8 +15,8 @@ import { MarkdownEditor } from "@/components/markdown/MarkdownEditor"
 import { LoadingSwap } from "@/components/LoadingSwap"
 import { z } from "zod"
 import { toast } from "sonner"
- import { createJobListingApplication } from "../actions/actions"
- import { newJobListingApplicationSchema } from "../actions/schemas"
+import { createJobListingApplication } from "../actions/actions"
+import { newJobListingApplicationSchema } from "../actions/schemas"
 import { Button } from "@/components/ui/button"
 
 export function NewJobListingApplicationForm({
@@ -71,5 +71,5 @@ export function NewJobListingApplicationForm({
         </Button>
       </form>
     </Form>
-  )
-};
+  );
+}

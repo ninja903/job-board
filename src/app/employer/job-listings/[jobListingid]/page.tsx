@@ -16,10 +16,10 @@ import {
   JobListingStatus,
   JobListingTable,
 } from "@/drizzle/schema"
-//import {
+import {
   ApplicationTable,
   SkeletonApplicationTable,
-} //from "@/features/jobListingApplications/components/ApplicationTable"
+} from "@/features/jobListingApplications/components/ApplicationTable"
 import { getJobListingApplicationJobListingTag } from "@/features/jobListingApplications/db/cache/jobListingApplications"
 import {
   deleteJobListing,
@@ -133,12 +133,12 @@ async function SuspendedPage({ params }: Props) {
 
       <div className="space-y-6">
         <h2 className="text-xl font-semibold">Applications</h2>
-        {/* <Suspense fallback={<SkeletonApplicationTable />}>
+        <Suspense fallback={<SkeletonApplicationTable />}>
           <Applications jobListingId={jobListingId} />
-        </Suspense> */}
+        </Suspense>
       </div>
     </div>
-  )
+  );
 }
 
 function StatusUpdateButton({
@@ -293,32 +293,32 @@ async function Applications({ jobListingId }: { jobListingId: string }) {
   const applications = await getJobListingApplications(jobListingId)
 
   return (
-    // <ApplicationTable
-    //   applications={applications.map(a => ({
-    //     ...a,
-    //     user: {
-    //       ...a.user,
-    //       resume: a.user.resume
-    //         ? {
-    //             ...a.user.resume,
-    //             markdownSummary: a.user.resume.aiSummary ? (
-    //               <MarkdownRenderer source={a.user.resume.aiSummary} />
-    //             ) : null,
-    //           }
-    //         : null,
-    //     },
-    //     coverLetterMarkdown: a.coverLetter ? (
-    //       <MarkdownRenderer source={a.coverLetter} />
-    //     ) : null,
-    //   }))}
-    //   canUpdateRating={await hasOrgUserPermission(
-    //     "org:job_listing_applications:change_rating"
-    //   )}
-    //   canUpdateStage={await hasOrgUserPermission(
-    //     "org:job_listing_applications:change_stage"
-    //   )}
-    // />
-  )
+    <ApplicationTable
+      applications={applications.map(a => ({
+        ...a,
+        user: {
+          ...a.user,
+          resume: a.user.resume
+            ? {
+              ...a.user.resume,
+              markdownSummary: a.user.resume.aiSummary ? (
+                <MarkdownRenderer source={a.user.resume.aiSummary} />
+              ) : null,
+            }
+            : null,
+        },
+        coverLetterMarkdown: a.coverLetter ? (
+          <MarkdownRenderer source={a.coverLetter} />
+        ) : null,
+      }))}
+      canUpdateRating={await hasOrgUserPermission(
+        "org:job_listing_applications:change_rating"
+      )}
+      canUpdateStage={await hasOrgUserPermission(
+        "org:job_listing_applications:change_stage"
+      )}
+    />
+  );
 }
 
 async function getJobListingApplications(jobListingId: string) {

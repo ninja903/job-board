@@ -86,5 +86,5 @@ export function JobListingBadges({
         {formatExperienceLevel(experienceLevel)}
       </Badge>
     </>
-  )
+  );
 }

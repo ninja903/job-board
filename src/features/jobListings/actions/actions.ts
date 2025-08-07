@@ -1,4 +1,3 @@
-
 "use server"
 
 import { z } from "zod"
@@ -27,7 +26,7 @@ import {
   hasReachedMaxFeaturedJobListings,
   hasReachedMaxPublishedJobListings,
 } from "../lib/planfeatureHelpers"
-//import { getMatchingJobListings } from "@/services/inngest/ai/getMatchingJobListings"
+import { getMatchingJobListings } from "@/services/inngest/ai/getMatchingJobListings"
 
 export async function createJobListing(
   unsafeData: z.infer<typeof jobListingSchema>
@@ -37,14 +36,11 @@ export async function createJobListing(
   if (
     orgId == null ||
     !(await hasOrgUserPermission("org:job_listings:create"))
-    
-  )console.log("orgId", orgId);
-  console.log("hasPermission", await hasOrgUserPermission("org:job_listings:create")); {
+  ) {
     return {
       error: true,
       message: "You don't have permission to create a job listing",
     }
-   
   }
 
   const { success, data } = jobListingSchema.safeParse(unsafeData)

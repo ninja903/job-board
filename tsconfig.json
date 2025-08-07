@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/types/app/(clerk)/sign-in/[[...sign-in]]/page.tsx", ".next/types/app/(clerk)/sign-in/layout.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/types/app/(clerk)/sign-in/[[...sign-in]]/page.tsx", ".next/types/app/(clerk)/sign-in/layout.tsx", "src/services/resend/components/DailyJobListingEmail.tsx.bak", "src/services/resend/components/DailyApplicationEmail.tsx.bak"],
   "exclude": ["node_modules"]
 }
