@@ -1,4 +1,7 @@
-import { ReactNode, Suspense } from "react"
+
+"use client"
+
+import { ReactNode, Suspense, use } from "react"
 
 type Props = {
   condition: () => Promise<boolean>
@@ -10,8 +13,8 @@ type Props = {
 export function AsyncIf({
   children,
   condition,
-  loadingFallback,
-  otherwise,
+  loadingFallback = null, 
+  otherwise = null,
 }: Props) {
   return (
     <Suspense fallback={loadingFallback}>
@@ -22,10 +25,15 @@ export function AsyncIf({
   )
 }
 
-async function SuspendedComponent({
+
+function SuspendedComponent({
   children,
   condition,
   otherwise,
 }: Omit<Props, "loadingFallback">) {
-  return (await condition()) ? children : otherwise
+
+  const shouldRender = use(condition())
+
+ 
+  return shouldRender ? <>{children}</> : <>{otherwise}</>
 }

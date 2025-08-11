@@ -25,7 +25,6 @@ import {
   experienceLevels,
   JobListingTable,
   jobListingTypes,
-  locationRequirementEnum,
   locationRequirements,
   wageIntervals,
 } from "@/drizzle/schema"
@@ -39,16 +38,13 @@ import { StateSelectItems } from "./StateSelectItems"
 import { MarkdownEditor } from "@/components/markdown/MarkdownEditor"
 import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/LoadingSwap"
-import { Loader2Icon } from "lucide-react"
 import { createJobListing, updateJobListing } from "../actions/actions"
 import { toast } from "sonner"
 
 const NONE_SELECT_VALUE = "none"
 
-export function JobListingForm({
-  jobListing,
-}: {
-  jobListing: Pick<
+interface JobListingFormProps {
+  jobListing?: Pick<
     typeof JobListingTable.$inferSelect,
     | "title"
     | "description"
@@ -61,9 +57,15 @@ export function JobListingForm({
     | "city"
     | "locationRequirement"
   >
-}) {
+}
+
+export function JobListingForm({ jobListing }: JobListingFormProps) {
+
+  const isEditMode = !!jobListing
+
   const form = useForm({
     resolver: zodResolver(jobListingSchema),
+ 
     defaultValues: jobListing ?? {
       title: "",
       description: "",
@@ -75,10 +77,11 @@ export function JobListingForm({
       type: "full-time",
       locationRequirement: "in-office",
     },
-  });
+  })
 
+  // This `onSubmit` logic was also correct and handles both cases.
   async function onSubmit(data: z.infer<typeof jobListingSchema>) {
-    const action = jobListing
+    const action = isEditMode
       ? updateJobListing.bind(null, jobListing.id)
       : createJobListing
     const res = await action(data)
@@ -86,7 +89,7 @@ export function JobListingForm({
     if (res.error) {
       toast.error(res.message)
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -304,10 +307,11 @@ export function JobListingForm({
           className="w-full"
         >
           <LoadingSwap isLoading={form.formState.isSubmitting}>
-            Create Job Listing
+          
+            {isEditMode ? "Update Job Listing" : "Create Job Listing"}
           </LoadingSwap>
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}

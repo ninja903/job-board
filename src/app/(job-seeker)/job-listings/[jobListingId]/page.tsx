@@ -66,10 +66,18 @@ import { NewJobListingApplicationForm } from "@/features/jobListingApplications/
                       breakpoint="min-width: 1024px"
                       otherwise={
                           <ClientSheet>
-                              <SheetContent hideCloseButton className="p-4 overflow-y-auto">
+                              <SheetContent className="p-4 overflow-y-auto">
+                                  
+                                  <button
+                                      type="button"
+                                      className="hidden"
+                                      aria-label="Close"
+                                  ></button>
+
                                   <SheetHeader className="sr-only">
                                       <SheetTitle>Job Listing Details</SheetTitle>
                                   </SheetHeader>
+
                                   <Suspense fallback={<LoadingSpinner />}>
                                       <JobListingDetails
                                           searchParams={searchParams}
