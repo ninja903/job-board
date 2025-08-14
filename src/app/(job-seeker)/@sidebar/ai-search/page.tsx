@@ -1,3 +1,3 @@
 export default function AiSearchSidebar() {
-  return <div />
+  return null
 }

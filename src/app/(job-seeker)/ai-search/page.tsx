@@ -1,4 +1,3 @@
-import { AsyncIf } from "@/components/AsyncIf"
 import { LoadingSwap } from "@/components/LoadingSwap"
 import {
   Card,
@@ -11,24 +10,26 @@ import { JobListingAiSearchForm } from "@/features/jobListings/components/JobLis
 import { SignUpButton } from "@/services/clerk/components/AuthButtons"
 import { getCurrentUser } from "@/services/clerk/lib/getCurrentAuth"
 
-export default function AiSearchPage() {
+export default async function AiSearchPage() {
+  const { userId } = await getCurrentUser()
+
+
+  if (userId === undefined) {
+    return (
+      <div className="p-4 flex items-center justify-center min-h-full">
+        <Card className="max-w-4xl">
+          <LoadingSwap isLoading>
+            <AiCard />
+          </LoadingSwap>
+        </Card>
+      </div>
+    )
+  }
+
   return (
     <div className="p-4 flex items-center justify-center min-h-full">
       <Card className="max-w-4xl">
-        <AsyncIf
-          condition={async () => {
-            const { userId } = await getCurrentUser()
-            return userId != null
-          }}
-          loadingFallback={
-            <LoadingSwap isLoading>
-              <AiCard />
-            </LoadingSwap>
-          }
-          otherwise={<NoPermission />}
-        >
-          <AiCard />
-        </AsyncIf>
+        {userId ? <AiCard /> : <NoPermission />}
       </Card>
     </div>
   )
