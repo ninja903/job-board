@@ -19,7 +19,9 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
+      "@/drizzle/schema": ["src/drizzle/schema.ts"], 
       "@/*": ["./src/*"]
     }
   },
