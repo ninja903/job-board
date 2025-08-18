@@ -1,7 +1,9 @@
-import { createEnv } from "@t3-oss/env-nextjs"
-import { z } from "zod"
 
-export const env = createEnv({
+import { createEnv } from "@t3-oss/env-nextjs";
+import { z } from "zod";
+
+
+const rawEnv = createEnv({
   server: {
     DB_PASSWORD: z.string().min(1),
     DB_USER: z.string().min(1),
@@ -16,16 +18,33 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     SERVER_URL: z.string().min(1),
   },
-  createFinalSchema: env => {
-    return z.object(env).transform(val => {
-      const { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER, ...rest } = val
-
-      return {
-        ...rest,
-        DATABASE_URL: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-      }
-    })
+  client: {
+ 
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
+  },
+  runtimeEnv: {
+    DB_PASSWORD: process.env.DB_PASSWORD,
+    DB_USER: process.env.DB_USER,
+    DB_HOST: process.env.DB_HOST,
+    DB_PORT: process.env.DB_PORT,
+    DB_NAME: process.env.DB_NAME,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
+    ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    SERVER_URL: process.env.SERVER_URL,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
   },
   emptyStringAsUndefined: true,
-  experimental__runtimeEnv: process.env,
-})
+});
+
+
+const constructedDatabaseUrl = `postgres://${rawEnv.DB_USER}:${rawEnv.DB_PASSWORD}@${rawEnv.DB_HOST}:${rawEnv.DB_PORT}/${rawEnv.DB_NAME}`;
+
+
+export const env = {
+  ...rawEnv,
+  DATABASE_URL: constructedDatabaseUrl,
+};
