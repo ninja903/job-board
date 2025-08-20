@@ -73,7 +73,7 @@ export function SidebarUserButtonClient({ user }: { user: User }) {
       </DropdownMenuContent>
     </DropdownMenu>
   )
-};
+}
 
 function UserInfo({ imageUrl, email, name }: User) {
   const nameInitials = name
@@ -96,4 +96,4 @@ function UserInfo({ imageUrl, email, name }: User) {
       </div>
     </div>
   )
-};
+}

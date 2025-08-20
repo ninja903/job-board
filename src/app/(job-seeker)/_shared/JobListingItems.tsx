@@ -1,4 +1,3 @@
-
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import {
   Card,
@@ -50,11 +49,11 @@ const searchParamsSchema = z.object({
 })
 
 export function JobListingItems(props: Props) {
-    return (
-        <Suspense>
-            <SuspendedComponent {...props} />
-        </Suspense>
-    );
+  return (
+    <Suspense>
+      <SuspendedComponent {...props} />
+    </Suspense>
+  )
 }
 
 async function SuspendedComponent({ searchParams, params }: Props) {
@@ -69,24 +68,24 @@ async function SuspendedComponent({ searchParams, params }: Props) {
     )
   }
 
-    return (
-        <div className="space-y-4">
-            {jobListings.map(jobListing => (
-                <Link
-                    className="block"
-                    key={jobListing.id}
-                    href={`/job-listings/${jobListing.id}?${convertSearchParamsToString(
-                        search
-                    )}`}
-                >
-                    <JobListingListItem
-                        jobListing={jobListing}
-                        organization={jobListing.organization}
-                    />
-                </Link>
-            ))}
-        </div>
-    );
+  return (
+    <div className="space-y-4">
+      {jobListings.map(jobListing => (
+        <Link
+          className="block"
+          key={jobListing.id}
+          href={`/job-listings/${jobListing.id}?${convertSearchParamsToString(
+            search
+          )}`}
+        >
+          <JobListingListItem
+            jobListing={jobListing}
+            organization={jobListing.organization}
+          />
+        </Link>
+      ))}
+    </div>
+  )
 }
 
 function JobListingListItem({
@@ -114,54 +113,54 @@ function JobListingListItem({
     .map(word => word[0])
     .join("")
 
-    return (
-        <Card
-            className={cn(
-                "@container",
-                jobListing.isFeatured && "border-featured bg-featured/20"
+  return (
+    <Card
+      className={cn(
+        "@container",
+        jobListing.isFeatured && "border-featured bg-featured/20"
+      )}
+    >
+      <CardHeader>
+        <div className="flex gap-4">
+          <Avatar className="size-14 @max-sm:hidden">
+            <AvatarImage
+              src={organization.imageUrl ?? undefined}
+              alt={organization.name}
+            />
+            <AvatarFallback className="uppercase bg-primary text-primary-foreground">
+              {nameInitials}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col gap-1">
+            <CardTitle className="text-xl">{jobListing.title}</CardTitle>
+            <CardDescription className="text-base">
+              {organization.name}
+            </CardDescription>
+            {jobListing.postedAt != null && (
+              <div className="text-sm font-medium text-primary @min-md:hidden">
+                <Suspense fallback={jobListing.postedAt.toLocaleDateString()}>
+                  <DaysSincePosting postedAt={jobListing.postedAt} />
+                </Suspense>
+              </div>
             )}
-        >
-            <CardHeader>
-                <div className="flex gap-4">
-                    <Avatar className="size-14 @max-sm:hidden">
-                        <AvatarImage
-                            src={organization.imageUrl ?? undefined}
-                            alt={organization.name}
-                        />
-                        <AvatarFallback className="uppercase bg-primary text-primary-foreground">
-                            {nameInitials}
-                        </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col gap-1">
-                        <CardTitle className="text-xl">{jobListing.title}</CardTitle>
-                        <CardDescription className="text-base">
-                            {organization.name}
-                        </CardDescription>
-                        {jobListing.postedAt != null && (
-                            <div className="text-sm font-medium text-primary @min-md:hidden">
-                                <Suspense fallback={jobListing.postedAt.toLocaleDateString()}>
-                                    <DaysSincePosting postedAt={jobListing.postedAt} />
-                                </Suspense>
-                            </div>
-                        )}
-                    </div>
-                    {jobListing.postedAt != null && (
-                        <div className="text-sm font-medium text-primary ml-auto @max-md:hidden">
-                            <Suspense fallback={jobListing.postedAt.toLocaleDateString()}>
-                                <DaysSincePosting postedAt={jobListing.postedAt} />
-                            </Suspense>
-                        </div>
-                    )}
-                </div>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-                <JobListingBadges
-                    jobListing={jobListing}
-                    className={jobListing.isFeatured ? "border-primary/35" : undefined}
-                />
-            </CardContent>
-        </Card>
-    );
+          </div>
+          {jobListing.postedAt != null && (
+            <div className="text-sm font-medium text-primary ml-auto @max-md:hidden">
+              <Suspense fallback={jobListing.postedAt.toLocaleDateString()}>
+                <DaysSincePosting postedAt={jobListing.postedAt} />
+              </Suspense>
+            </div>
+          )}
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-wrap gap-2">
+        <JobListingBadges
+          jobListing={jobListing}
+          className={jobListing.isFeatured ? "border-primary/35" : undefined}
+        />
+      </CardContent>
+    </Card>
+  )
 }
 
 async function DaysSincePosting({ postedAt }: { postedAt: Date }) {
@@ -190,65 +189,65 @@ async function getJobListings(
     whereConditions.push(
       ilike(JobListingTable.title, `%${searchParams.title}%`)
     )
-    };
+  }
 
   if (searchParams.locationRequirement) {
     whereConditions.push(
       eq(JobListingTable.locationRequirement, searchParams.locationRequirement)
     )
-    };
+  }
 
   if (searchParams.city) {
     whereConditions.push(ilike(JobListingTable.city, `%${searchParams.city}%`))
-    };
+  }
 
   if (searchParams.state) {
     whereConditions.push(
       eq(JobListingTable.stateAbbreviation, searchParams.state)
     )
-    };
+  }
 
   if (searchParams.experience) {
     whereConditions.push(
       eq(JobListingTable.experienceLevel, searchParams.experience)
     )
-    };
+  }
 
   if (searchParams.type) {
     whereConditions.push(eq(JobListingTable.type, searchParams.type))
-    };
+  }
 
   if (searchParams.jobIds) {
     whereConditions.push(
       or(...searchParams.jobIds.map(jobId => eq(JobListingTable.id, jobId)))
     )
-    };
+  }
 
-    const data = await db.query.JobListingTable.findMany({
-        where: or(
-            jobListingId
-                ? and(
-                    eq(JobListingTable.status, "published"),
-                    eq(JobListingTable.id, jobListingId)
-                )
-                : undefined,
-            and(eq(JobListingTable.status, "published"), ...whereConditions)
-        ),
-        with: {
-            organization: {
-                columns: {
-                    id: true,
-                    name: true,
-                    imageUrl: true,
-                },
-            },
+  const data = await db.query.JobListingTable.findMany({
+    where: or(
+      jobListingId
+        ? and(
+            eq(JobListingTable.status, "published"),
+            eq(JobListingTable.id, jobListingId)
+          )
+        : undefined,
+      and(eq(JobListingTable.status, "published"), ...whereConditions)
+    ),
+    with: {
+      organization: {
+        columns: {
+          id: true,
+          name: true,
+          imageUrl: true,
         },
-        orderBy: [desc(JobListingTable.isFeatured), desc(JobListingTable.postedAt)],
-    });
+      },
+    },
+    orderBy: [desc(JobListingTable.isFeatured), desc(JobListingTable.postedAt)],
+  })
 
-    data.forEach(listing => {
-        cacheTag(getOrganizationIdTag(listing.organization.id))
-    });
+  data.forEach(listing => {
+    cacheTag(getOrganizationIdTag(listing.organization.id))
+  })
 
   return data
 }

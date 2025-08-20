@@ -51,75 +51,75 @@ export function NotificationsForm({
 
   const newJobEmailNotifications = form.watch("newJobEmailNotifications")
 
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <div className="border rounded-lg p-4 shadow-sm space-y-6">
-                    <FormField
-                        name="newJobEmailNotifications"
-                        control={form.control}
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex items-center justify-between">
-                                    <div className="space-y-0.5">
-                                        <FormLabel>Daily Email Notifications</FormLabel>
-                                        <FormDescription>
-                                            Receive emails about new job listings that match your
-                                            interests
-                                        </FormDescription>
-                                    </div>
-                                    <FormControl>
-                                        <Switch
-                                            checked={field.value}
-                                            onCheckedChange={field.onChange}
-                                        />
-                                    </FormControl>
-                                </div>
-                            </FormItem>
-                        )}
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <div className="border rounded-lg p-4 shadow-sm space-y-6">
+          <FormField
+            name="newJobEmailNotifications"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <FormLabel>Daily Email Notifications</FormLabel>
+                    <FormDescription>
+                      Receive emails about new job listings that match your
+                      interests
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
                     />
-                    {newJobEmailNotifications && (
-                        <FormField
-                            name="aiPrompt"
-                            control={form.control}
-                            render={({ field }) => (
-                                <FormItem>
-                                    <div className="space-y-0.5">
-                                        <FormLabel>Filter Prompt</FormLabel>
-                                        <FormDescription>
-                                            Our AI will use this prompt to filter job listings and
-                                            only send you notifications for jobs that match your
-                                            criteria.
-                                        </FormDescription>
-                                    </div>
-                                    <FormControl>
-                                        <Textarea
-                                            {...field}
-                                            value={field.value ?? ""}
-                                            className="min-h-32"
-                                            placeholder="Describe the jobs you're interested in. For example: 'I'm looking for remote frontend development positions that use React and pay at least $100k per year.'"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Leave blank to receive notifications of all new job
-                                        listings.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    )}
+                  </FormControl>
                 </div>
-                <Button
-                    type="submit"
-                    disabled={form.formState.isSubmitting}
-                    className="w-full"
-                >
-                    <LoadingSwap isLoading={form.formState.isSubmitting}>
-                        Save Notification Settings
-                    </LoadingSwap>
-                </Button>
-            </form>
-        </Form>
-    );
+              </FormItem>
+            )}
+          />
+          {newJobEmailNotifications && (
+            <FormField
+              name="aiPrompt"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <div className="space-y-0.5">
+                    <FormLabel>Filter Prompt</FormLabel>
+                    <FormDescription>
+                      Our AI will use this prompt to filter job listings and
+                      only send you notifications for jobs that match your
+                      criteria.
+                    </FormDescription>
+                  </div>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      value={field.value ?? ""}
+                      className="min-h-32"
+                      placeholder="Describe the jobs you're interested in. For example: 'I'm looking for remote frontend development positions that use React and pay at least $100k per year.'"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Leave blank to receive notifications of all new job
+                    listings.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+        </div>
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          className="w-full"
+        >
+          <LoadingSwap isLoading={form.formState.isSubmitting}>
+            Save Notification Settings
+          </LoadingSwap>
+        </Button>
+      </form>
+    </Form>
+  )
 }
